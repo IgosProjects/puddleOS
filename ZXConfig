@@ -1,0 +1,17 @@
+zxconfig 1.0
+
+# Bool
+option USE_FB : bool = false {
+    label "Use framebuffer for console output"
+    help  "Enable kCon to use the framebuffer"
+    tags  ["kcon", "fb", "core"]        # freeform search labels
+}
+
+# Bool
+option USE_UART : bool = false {
+    label "Use uart for console output"
+    help  "Enable kUART to use the UART console"
+    tags  ["kuart", "uart", "core"]        # freeform search labels
+}
+
+generate header "hark/include/util/config.h" # generate C/C++ header
