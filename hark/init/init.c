@@ -13,3 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+#include <stdint.h>
+
+// main entry function that our assembly layer calls on boot
+// responsible for kernel init
+void k_entry() {
+    // we are in very low level code, so low we dont even got a console!
+    // so we must define that ourselves
+}

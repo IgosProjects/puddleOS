@@ -1,0 +1,12 @@
+*.o
+*.elf
+
+# logs
+
+*.log
+*.debug
+
+# other
+
+.vscode
+build

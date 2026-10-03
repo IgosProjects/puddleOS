@@ -1,15 +1,15 @@
 [binaries]
-c = 'x86_64-elf-gcc'
-cpp = 'x86_64-elf-g++'
-ar = 'x86_64-elf-ar'
-ld = 'x86_64-elf-ld'
+c = 'clang'
+cpp = 'clang++'
+ar = 'llvm-ar'
+ld = 'ld.lld'
 nasm = 'nasm'
 
 [built-in options]
-c_args = ['-ffreestanding', '-nostdlib', '-nostdinc', '-fno-builtin']
-c_link_args = ['-nostdlib', '-static']
-cpp_args = ['-ffreestanding', '-nostdlib', '-nostdinc', '-fno-builtin', '-fno-exceptions', '-fno-rtti']
-cpp_link_args = ['-nostdlib', '-static']
+c_args = ['--target=x86_64-elf', '-ffreestanding', '-nostdlib', '-fno-builtin']
+c_link_args = ['--target=x86_64-elf', '-nostdlib', '-static', '-fuse-ld=lld']
+cpp_args = ['--target=x86_64-elf', '-ffreestanding', '-nostdlib', '-fno-builtin', '-fno-exceptions', '-fno-rtti']
+cpp_link_args = ['--target=x86_64-elf', '-nostdlib', '-static', '-fuse-ld=lld']
 
 [host_machine]
 system = 'none'
