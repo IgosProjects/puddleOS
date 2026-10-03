@@ -14,25 +14,11 @@
  * limitations under the License.
  */
 
+#pragma once
 #include <stdint.h>
-#include <util/config.h>
-#include <drivers/kUART.h>
-#include <asm/hcf.h>
 
-// main entry function that our assembly layer calls on boot
-// responsible for kernel init
-void k_entry() {
-    // we are in very low level code, so low we dont even got a console!
-    // so we must define that ourselves
+void outb(uint16_t port, uint8_t value);
+uint8_t inb(uint16_t port);
 
-    //#if CONFIG_USE_UART == 1
-        // initilize UART
-        kUART_init();
-    //#endif
-
-    kUART_putc('H');
-    kUART_puts("Hello, World!");
-
-    // stop the CPU
-    hcf();
-}
+void outw(uint16_t port, uint16_t value);
+uint16_t inw(uint16_t port);

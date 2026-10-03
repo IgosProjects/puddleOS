@@ -14,15 +14,14 @@
 ; * limitations under the License.
 ; *
 
+; this file defines the HCF function that stops the CPU forver
+
 [BITS 64]
 
-global _start ; make the linker see our start function
-extern k_entry ; make the linker find the kernel entry
+global hcf
 
-; main entry function of the OS
-; called by bootloader on entry
-_start:
-	call k_entry
-
-	cli
-	hlt
+hcf:
+    cli
+.hlt_loop:
+    hlt
+    jmp .hlt_loop

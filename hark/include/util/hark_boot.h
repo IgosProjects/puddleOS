@@ -14,25 +14,31 @@
  * limitations under the License.
  */
 
+#pragma once
 #include <stdint.h>
-#include <util/config.h>
-#include <drivers/kUART.h>
-#include <asm/hcf.h>
 
-// main entry function that our assembly layer calls on boot
-// responsible for kernel init
-void k_entry() {
-    // we are in very low level code, so low we dont even got a console!
-    // so we must define that ourselves
+// DESC: base struct for the HARK framebuffer
+struct hark_fb {
+    uintptr_t ptr;
 
-    //#if CONFIG_USE_UART == 1
-        // initilize UART
-        kUART_init();
-    //#endif
+    // height and width
+    uint64_t height;
+    uint64_t width;
 
-    kUART_putc('H');
-    kUART_puts("Hello, World!");
+    // other info
+    uint64_t pitch;
+    uint16_t bpp;
+    uint8_t mem_info;
 
-    // stop the CPU
-    hcf();
-}
+    // red mask
+    uint8_t red_mask_size;
+    uint8_t red_mask_shift;
+
+    // green mask
+    uint8_t green_mask_size;
+    uint8_t green_mask_shift;
+
+    // blue mask
+    uint8_t blue_mask_size;
+    uint8_t blue_mask_shift;
+};

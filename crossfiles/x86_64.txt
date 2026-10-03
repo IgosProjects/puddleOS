@@ -6,10 +6,10 @@ ld = 'ld.lld'
 nasm = 'nasm'
 
 [built-in options]
-c_args = ['--target=x86_64-elf', '-ffreestanding', '-nostdlib', '-fno-builtin']
-c_link_args = ['--target=x86_64-elf', '-nostdlib', '-static', '-fuse-ld=lld']
+c_args = ['--target=x86_64-elf', '-ffreestanding', '-nostdlib', '-fno-builtin', '-mcmodel=kernel', '-fno-pie']
+c_link_args = ['--target=x86_64-elf', '-nostdlib', '-static', '-fuse-ld=lld', '-mcmodel=kernel', '-fno-pie']
 cpp_args = ['--target=x86_64-elf', '-ffreestanding', '-nostdlib', '-fno-builtin', '-fno-exceptions', '-fno-rtti']
-cpp_link_args = ['--target=x86_64-elf', '-nostdlib', '-static', '-fuse-ld=lld']
+cpp_link_args = ['--target=x86_64-elf', '-nostdlib', '-static', '-fuse-ld=lld', '-mcmodel=kernel', '-fno-pie']
 
 [host_machine]
 system = 'none'
