@@ -17,11 +17,14 @@
 #include <drivers/kUART.h>
 #include <arch/asm/ports.h>
 #include <stdint.h>
+#include <util/config.h>
 
 #define COM1 0x3F8 // todo: scan COM ports to find correct one
 
 // gets kUART ready to print to UART
 void kUART_init() {
+    #if CONFIG_USE_UART == 1
+
     outb(COM1 + 1, 0x00);    // Disable all interrupts
     outb(COM1 + 3, 0x80);    // Enable DLAB (set baud rate divisor)
     outb(COM1 + 0, 0x03);    // Set divisor to 3 (lo byte) 38400 baud
@@ -30,6 +33,8 @@ void kUART_init() {
     outb(COM1 + 2, 0xC7);    // Enable FIFO, clear them, with 14-byte threshold
     outb(COM1 + 4, 0x0B);    // IRQs enabled, RTS/DSR set
     outb(COM1 + 4, 0x0F);    // Now that we have confirmed its fine, lets set it back to normal mode
+
+    #endif    
 }
 
 // checks if the OS can safely write to UART
@@ -39,16 +44,24 @@ int is_transmit_empty() {
 
 // prints a single character to UART
 void kUART_putc(char c) {
+    #if CONFIG_USE_UART == 1
+
     while (is_transmit_empty() == 0); // waste CPU cycles to wait on this, maybe do this more efficeintly?
 
     outb(COM1, c); // write the character to UART
+
+    #endif
 }
 
 // prints a single string to UART
 void kUART_puts(char* str) {
+    #if CONFIG_USE_UART == 1
+
     // stop when 0 is encountered(NULL terminator)
     while (*str) {
         kUART_putc(*str);
         str++;
     }
+
+    #endif
 }
